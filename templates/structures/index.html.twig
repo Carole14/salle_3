@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Structures index{% endblock %}
+
+{% block body %}
+    <h1>Structures index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Mot_de_passe</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for structure in structures %}
+            <tr>
+                <td>{{ structure.id }}</td>
+                <td>{{ structure.nom }}</td>
+                <td>{{ structure.email }}</td>
+                <td>{{ structure.motDePasse }}</td>
+                <td>
+                    <a href="{{ path('app_structures_show', {'id': structure.id}) }}">show</a>
+                    <a href="{{ path('app_structures_edit', {'id': structure.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_structures_new') }}">Create new</a>
+{% endblock %}
