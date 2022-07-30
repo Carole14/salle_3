@@ -21,9 +21,13 @@ class Perms
     #[ORM\ManyToMany(targetEntity: Partenaires::class, inversedBy: 'partperms')]
     private Collection $partperms;
 
+    #[ORM\ManyToMany(targetEntity: Structures::class, mappedBy: 'struturesperms')]
+    private Collection $structures;
+
     public function __construct()
     {
         $this->partperms = new ArrayCollection();
+        $this->structures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -63,6 +67,33 @@ class Perms
     public function removePartperm(Partenaires $partperm): self
     {
         $this->partperms->removeElement($partperm);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Structures>
+     */
+    public function getStructures(): Collection
+    {
+        return $this->structures;
+    }
+
+    public function addStructure(Structures $structure): self
+    {
+        if (!$this->structures->contains($structure)) {
+            $this->structures->add($structure);
+            $structure->addStruturesperm($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStructure(Structures $structure): self
+    {
+        if ($this->structures->removeElement($structure)) {
+            $structure->removeStruturesperm($this);
+        }
 
         return $this;
     }
