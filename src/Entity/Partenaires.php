@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PartenairesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PartenairesRepository::class)]
@@ -28,6 +30,14 @@ class Partenaires
     #[ORM\ManyToOne(inversedBy: 'partenaires')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $partenaire = null;
+
+    #[ORM\ManyToMany(targetEntity: Perms::class, mappedBy: 'partperms')]
+    private Collection $partperms;
+
+    public function __construct()
+    {
+        $this->partperms = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +100,33 @@ class Partenaires
     public function setPartenaire(?User $partenaire): self
     {
         $this->partenaire = $partenaire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Perms>
+     */
+    public function getPartperms(): Collection
+    {
+        return $this->partperms;
+    }
+
+    public function addPartperm(Perms $partperm): self
+    {
+        if (!$this->partperms->contains($partperm)) {
+            $this->partperms->add($partperm);
+            $partperm->addPartperm($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartperm(Perms $partperm): self
+    {
+        if ($this->partperms->removeElement($partperm)) {
+            $partperm->removePartperm($this);
+        }
 
         return $this;
     }

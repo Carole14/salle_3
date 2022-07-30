@@ -1,0 +1,55 @@
+@import 'custom';
+@import '~bootstrap/scss/bootstrap';
+
+h1 {
+    text-align: center;
+}
+
+.vertical-line{
+    border-left: 2px solid;
+    display: inline-block;
+    height: 130px;
+    margin: 0 20px;
+    text-align: center;
+}
+
+.form-signin {
+	width: 100%;
+	max-width: 330px;
+	padding: 15px;
+	margin: auto;
+    color: #9395D3;
+}
+
+.form-signin .form-floating:focus-within {
+	z-index: 2;
+}
+
+.form-signin input[type='email'] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+    color: #9395D3;
+}
+
+.form-signin input[type='password'] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+    color: #9395D3;
+}
+.button {
+    background: #FBF9FF;
+    color: #9395D3;
+}
+
+.btn {
+    text-align: center;
+    background-color: #9395D3;
+}
+
+.search {
+    margin-left: 15%;
+     padding:15px;
+     border-radius: 10px;
+}
