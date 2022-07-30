@@ -39,6 +39,24 @@ class PartenairesRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Get parteners with query search
+     * 
+     */
+    public function findSearch($search)
+    {
+
+        $query = $this
+        ->createQueryBuilder('p');
+
+        if(!empty($search)) {
+            $query = $query
+            ->andWhere('p.name LIKE :q')
+            ->setParameter('q', "%{$search}%");
+        }
+        return $query = $query->getQuery()->getResult();;
+    }
+
 //    /**
 //     * @return Partenaires[] Returns an array of Partenaires objects
 //     */

@@ -3,21 +3,33 @@
 namespace App\Controller;
 
 use App\Entity\Partenaires;
+use App\Data\SearchData;
 use App\Form\PartenairesType;
+use App\Form\SearchForm;
 use App\Repository\PartenairesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 #[Route('/partenaires')]
 class PartenairesController extends AbstractController
 {
-    #[Route('/', name: 'app_partenaires_index', methods: ['GET'])]
-    public function index(PartenairesRepository $partenairesRepository): Response
+    #[Route('/', name: 'app_partenaires_index', methods: ['GET', 'POST'])]
+    public function index (Request $request, PartenairesRepository $partenairesRepository): Response
     {
-        return $this->render('partenaires/index.html.twig', [
-            'partenaires' => $partenairesRepository->findAll(),
+        $data = new SearchData();
+        $form = $this->createForm(SearchForm::class, $data);
+        $partnerFilter = $partenairesRepository->findAll();
+        $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()){
+                $partnerFilter = $partenairesRepository->findSearch($request->get('q'));
+            }
+            return $this->render('partenaires/index.html.twig', [
+                'partenaires' => $partnerFilter,
+                'form' => $form->createView()
         ]);
     }
 

@@ -5,6 +5,12 @@
 {% block body %}
     <h1>Partenaires index</h1>
 
+      {{ form_start(form)}}
+    	<div class="sidebar__item">
+		{{ form_row(form.q, {"attr": {"class": "form-control pl-30", "id": "site-search"}}) }}
+	</div>
+    {{ form_end(form) }}
+
     <table class="table">
         <thead>
             <tr>
