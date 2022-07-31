@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Partenaires index{% endblock %}
+{% block title %}Liste des partenaires{% endblock %}
 
 {% block body %}
-    <h1>Partenaires index</h1>
+
+{% include 'navigation.html.twig' %}
+
+    <h1>Liste des partenaires</h1>
 
       {{ form_start(form)}}
     	<div class="sidebar__item">
@@ -31,17 +34,17 @@
                 <td>{{ partenaire.email }}</td>
                 <td>{{ partenaire.motDePasse }}</td>
                 <td>
-                    <a href="{{ path('app_partenaires_show', {'id': partenaire.id}) }}">show</a>
-                    <a href="{{ path('app_partenaires_edit', {'id': partenaire.id}) }}">edit</a>
+                    <a href="{{ path('app_partenaires_show', {'id': partenaire.id}) }}">Montrer</a>
+                    <a href="{{ path('app_partenaires_edit', {'id': partenaire.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">pas de partenaires trouvés</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_partenaires_new') }}">Create new</a>
+    <a href="{{ path('app_partenaires_new') }}">Créer un nouveau partenaire</a>
 {% endblock %}

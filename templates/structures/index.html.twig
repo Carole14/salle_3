@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Structures index{% endblock %}
+{% block title %}Listes des Structures{% endblock %}
 
 {% block body %}
-    <h1>Structures index</h1>
+
+{% include 'navigation.html.twig' %}
+
+    <h1>Listes des structures</h1>
 
     <table class="table">
         <thead>
@@ -29,11 +32,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Pas de structures trouvées</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_structures_new') }}">Create new</a>
+    <a href="{{ path('app_structures_new') }}">Créer une nouvelle structure</a>
 {% endblock %}
