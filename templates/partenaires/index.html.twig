@@ -46,5 +46,10 @@
         </tbody>
     </table>
 
+    
+    {% if app.user.roles[0] is same as("ROLE_ADMIN") %}
+
     <a href="{{ path('app_partenaires_new') }}">Créer un nouveau partenaire</a>
+       
+{% endif %}
 {% endblock %}

@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Partenaires;
 use App\Data\SearchData;
+use App\Entity\Partenaires;
 use App\Form\PartenairesType;
 use App\Form\SearchForm;
 use App\Repository\PartenairesRepository;

@@ -8,28 +8,17 @@
 
     <h1>Listes des structures</h1>
 
+{% for structure in structures %}
     <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Mot_de_passe</th>
-                <th>actions</th>
-            </tr>
-        </thead>
         <tbody>
-        {% for structure in structures %}
             <tr>
-                <td>{{ structure.id }}</td>
+                <th>Nom</th>
                 <td>{{ structure.nom }}</td>
-                <td>{{ structure.email }}</td>
-                <td>{{ structure.motDePasse }}</td>
-                <td>
-                    <a href="{{ path('app_structures_show', {'id': structure.id}) }}">show</a>
-                    <a href="{{ path('app_structures_edit', {'id': structure.id}) }}">edit</a>
-                </td>
             </tr>
+               <tr>
+                <th>Description</th>
+                <td>{{ structure.Description }}</td>
+            </tr>        
         {% else %}
             <tr>
                 <td colspan="5">Pas de structures trouvées</td>
@@ -38,5 +27,11 @@
         </tbody>
     </table>
 
+
+    {% if app.user.roles[0] is same as("ROLE_ADMIN") %}
+
     <a href="{{ path('app_structures_new') }}">Créer une nouvelle structure</a>
+
+    
+{% endif %}
 {% endblock %}

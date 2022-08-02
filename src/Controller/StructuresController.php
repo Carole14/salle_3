@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\Structures;
 use App\Form\StructuresType;
 use App\Repository\StructuresRepository;
+use App\Form\SearchForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/structures')]
 class StructuresController extends AbstractController
 {
-    #[Route('/', name: 'app_structures_index', methods: ['GET'])]
+    #[Route('/', name: 'app_structures_index', methods: ['GET', 'POST'])]
     public function index(StructuresRepository $structuresRepository): Response
     {
         return $this->render('structures/index.html.twig', [

@@ -27,6 +27,12 @@ class Structures
     #[ORM\ManyToMany(targetEntity: Perms::class, inversedBy: 'structures')]
     private Collection $struturesperms;
 
+    #[ORM\Column(length: 255)]
+    private ?string $Description = null;
+
+    #[ORM\Column]
+    private ?bool $Active = null;
+
     public function __construct()
     {
         $this->struturesperms = new ArrayCollection();
@@ -93,6 +99,30 @@ class Structures
     public function removeStruturesperm(Perms $struturesperm): self
     {
         $this->struturesperms->removeElement($struturesperm);
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+
+    public function setDescription(string $Description): self
+    {
+        $this->Description = $Description;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->Active;
+    }
+
+    public function setActive(bool $Active): self
+    {
+        $this->Active = $Active;
 
         return $this;
     }

@@ -21,6 +21,9 @@ class Partenaires
     #[ORM\Column]
     private ?bool $active = null;
 
+    #[ORM\Column]
+    private ?bool $Inactif = null;
+
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
@@ -33,6 +36,8 @@ class Partenaires
 
     #[ORM\ManyToMany(targetEntity: Perms::class, mappedBy: 'partperms')]
     private Collection $partperms;
+
+    
 
     public function __construct()
     {
@@ -127,6 +132,18 @@ class Partenaires
         if ($this->partperms->removeElement($partperm)) {
             $partperm->removePartperm($this);
         }
+
+        return $this;
+    }
+
+    public function isInactif(): ?bool
+    {
+        return $this->Inactif;
+    }
+
+    public function setInactif(bool $Inactif): self
+    {
+        $this->Inactif = $Inactif;
 
         return $this;
     }
