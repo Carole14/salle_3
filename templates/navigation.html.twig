@@ -12,19 +12,21 @@
         <li class="nav-item">
           <a class="nav-link active" href="{{ path('app_login')}}">Accueil</a>
           </li>
-           {% if app.user.roles[0] is same as("ROLE_ADMIN") %}
+          
         <li class="nav-item">
         <a class="nav-link" aria-current="page" href="{{ path('app_partenaires_new')}}">Créer un partenaire</a> 
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="{{ path('app_structures_new')}}">créer une strucure</a>
         </li>
-        {% endif %}
+      
+ 
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{{ path('app_structures_new')}}">Liste des partenaires</a>
+          <a class="nav-link" aria-current="page" href="{{ path('app_partenaires_index')}}">Liste des partenaires</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{{ path('app_structures_new')}}">Liste des structures</a>
+          <a class="nav-link" aria-current="page" href="{{ path('app_structures_index')}}">Liste des structures</a>
         </li>
+
           </ul>
   
     </div>

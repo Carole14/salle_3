@@ -54,7 +54,11 @@ class PartenairesType extends AbstractType
                     'inactive' => 'false',
                 ]
             ])
-            
+            ->add ('partperms', EntityType::class, [
+                'class' => Perms::class,
+                'multiple' => true,
+                'expanded' => true,
+            ]);
           
         ;
     }

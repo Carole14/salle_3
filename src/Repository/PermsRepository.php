@@ -39,6 +39,14 @@ class PermsRepository extends ServiceEntityRepository
         }
     }
 
+   
+    
+    
+
+
+
+// $article 5 est une instance de Sdz\BlogBundle\Entity\Article
+
 //    /**
 //     * @return Perms[] Returns an array of Perms objects
 //     */

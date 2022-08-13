@@ -15,8 +15,7 @@ class Perms
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?bool $nom = null;
+  
 
     #[ORM\ManyToMany(targetEntity: Partenaires::class, inversedBy: 'partperms')]
     private Collection $partperms;
@@ -24,28 +23,20 @@ class Perms
     #[ORM\ManyToMany(targetEntity: Structures::class, mappedBy: 'struturesperms')]
     private Collection $structures;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    #[ORM\Column(length: 255)]
+    private ?string $nom2 = null;
+
     public function __construct()
     {
         $this->partperms = new ArrayCollection();
         $this->structures = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function isNom(): ?bool
-    {
-        return $this->nom;
-    }
-
-    public function setNom(bool $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Partenaires>
@@ -96,5 +87,22 @@ class Perms
         }
 
         return $this;
+    }
+
+    public function getNom2(): ?string
+    {
+        return $this->nom2;
+    }
+
+    public function setNom2(string $nom2): self
+    {
+        $this->nom2 = $nom2;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nom2;
     }
 }

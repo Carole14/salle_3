@@ -28,10 +28,11 @@
     </table>
 
 
+
     {% if app.user.roles[0] is same as("ROLE_ADMIN") %}
 
     <a href="{{ path('app_structures_new') }}">Créer une nouvelle structure</a>
 
-    
 {% endif %}
+
 {% endblock %}

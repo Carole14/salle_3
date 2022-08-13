@@ -2,15 +2,15 @@
 
 namespace App\Controller;
 
-use App\Data\SearchData;
+
 use App\Entity\Structures;
 use App\Form\StructuresType;
 use App\Repository\StructuresRepository;
-use App\Form\SearchForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/structures')]
 class StructuresController extends AbstractController
@@ -24,11 +24,14 @@ class StructuresController extends AbstractController
     }
 
     #[Route('/new', name: 'app_structures_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, StructuresRepository $structuresRepository): Response
+    public function new(Request $request, StructuresRepository $structuresRepository, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $structure = new Structures();
         $form = $this->createForm(StructuresType::class, $structure);
         $form->handleRequest($request);
+        
+
+    
 
         if ($form->isSubmitted() && $form->isValid()) {
             $structuresRepository->add($structure, true);
