@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Perms;
 use App\Entity\Partenaires;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -12,6 +13,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class PartenairesType extends AbstractType
 {
@@ -31,36 +33,24 @@ class PartenairesType extends AbstractType
                 ],
             ])
             ->add('mot_de_passe', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'label' => 'mot de passe du partenaire',
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'nouveau mot de passe'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'entrer le mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
+                'label' => 'mot de passe du partenaire',             
+                ])
+            
             ->add('active', ChoiceType::class, [
+                'label' => 'Actif/inactif',
                 'choices' => [
-                    'active' => 'true',
-                    'inactive' => 'false',
+                    'actif' => 'true',
+                    'inactif' => 'false',
                 ]
             ])
             ->add ('partperms', EntityType::class, [
+                'label' => 'liste des permissions possible',
                 'class' => Perms::class,
                 'multiple' => true,
                 'expanded' => true,
-            ]);
-          
-        ;
+            ])
+            ;
+        
     }
 
     public function configureOptions(OptionsResolver $resolver): void

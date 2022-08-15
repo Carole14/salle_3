@@ -21,6 +21,10 @@ class Structures
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    /**
+     * @var string The hashed password
+     */
+
     #[ORM\Column(length: 255)]
     private ?string $mot_de_passe = null;
 
@@ -32,6 +36,9 @@ class Structures
 
     #[ORM\Column]
     private ?bool $Active = null;
+
+    #[ORM\ManyToOne(inversedBy: 'structures')]
+    private ?Partenaires $partenaire = null;
 
     public function __construct()
     {
@@ -123,6 +130,18 @@ class Structures
     public function setActive(bool $Active): self
     {
         $this->Active = $Active;
+
+        return $this;
+    }
+
+    public function getPartenaire(): ?Partenaires
+    {
+        return $this->partenaire;
+    }
+
+    public function setPartenaire(?Partenaires $partenaire): self
+    {
+        $this->partenaire = $partenaire;
 
         return $this;
     }

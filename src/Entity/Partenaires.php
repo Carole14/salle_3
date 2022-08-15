@@ -21,27 +21,32 @@ class Partenaires
     #[ORM\Column]
     private ?bool $active = null;
 
-    #[ORM\Column]
-    private ?bool $Inactif = null;
-
     #[ORM\Column(length: 255)]
     private ?string $email = null;
+
+    /**
+     * @var string The hashed password
+     */
 
     #[ORM\Column(length: 255)]
     private ?string $mot_de_passe = null;
 
     #[ORM\ManyToOne(inversedBy: 'partenaires')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $partenaire = null;
 
     #[ORM\ManyToMany(targetEntity: Perms::class, mappedBy: 'partperms')]
     private Collection $partperms;
+
+    #[ORM\OneToMany(mappedBy: 'partenaire', targetEntity: Structures::class)]
+    private Collection $structures;
 
     
 
     public function __construct()
     {
         $this->partperms = new ArrayCollection();
+        $this->structures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,15 +141,34 @@ class Partenaires
         return $this;
     }
 
-    public function isInactif(): ?bool
+    /**
+     * @return Collection<int, Structures>
+     */
+    public function getStructures(): Collection
     {
-        return $this->Inactif;
+        return $this->structures;
     }
 
-    public function setInactif(bool $Inactif): self
+    public function addStructure(Structures $structure): self
     {
-        $this->Inactif = $Inactif;
+        if (!$this->structures->contains($structure)) {
+            $this->structures->add($structure);
+            $structure->setPartenaire($this);
+        }
 
         return $this;
     }
+
+    public function removeStructure(Structures $structure): self
+    {
+        if ($this->structures->removeElement($structure)) {
+            // set the owning side to null (unless already changed)
+            if ($structure->getPartenaire() === $this) {
+                $structure->setPartenaire(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

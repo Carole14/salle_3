@@ -47,4 +47,31 @@ h1 {
     background-color: #9395D3;
 }
 
+.col {
+    border-width: 2px;
+    border-style: solid;
+    border-color: #A2A3BB;
+}
 
+.liste {
+    list-style-type: none;
+    color: black;
+
+}
+
+.titre {
+    color :#9395D3;
+    list-style-type: none;
+}
+
+@media only screen and (min-width: 992px) {
+    .col {column-count: 4;}
+}
+
+.structure {
+    line-height: 7rem;
+}
+
+.nouvelle {
+    color: #9395D3;
+}

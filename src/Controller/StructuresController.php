@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-
+use App\Data\SearchData;
+use App\Form\SearchForm;
 use App\Entity\Structures;
 use App\Form\StructuresType;
 use App\Repository\StructuresRepository;
@@ -10,25 +11,35 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/structures')]
 class StructuresController extends AbstractController
 {
     #[Route('/', name: 'app_structures_index', methods: ['GET', 'POST'])]
-    public function index(StructuresRepository $structuresRepository): Response
+    public function index(Request $request, StructuresRepository $structuresRepository): Response
     {
+        $data = new SearchData();
+        $form = $this->createForm(SearchForm::class, $data);
+        $structureFilter = $structuresRepository->findAll() ;
+        $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()){
+                $structureFilter = $structuresRepository->findSearch($request->get('q'));
+            }
+
         return $this->render('structures/index.html.twig', [
-            'structures' => $structuresRepository->findAll(),
+            'structure' => $structureFilter,
+            'form' => $form->createView()
         ]);
     }
 
     #[Route('/new', name: 'app_structures_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, StructuresRepository $structuresRepository, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function new(Request $request, StructuresRepository $structuresRepository): Response
     {
         $structure = new Structures();
         $form = $this->createForm(StructuresType::class, $structure);
         $form->handleRequest($request);
+        
         
 
     

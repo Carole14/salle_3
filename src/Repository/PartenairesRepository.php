@@ -52,7 +52,7 @@ class PartenairesRepository extends ServiceEntityRepository
 
         if(!empty($search)) {
             $query = $query
-            ->andWhere('p.name LIKE :q')
+            ->andWhere('p.nom LIKE :q')
             ->setParameter('q', "%{$search}%");
         }
         return $query = $query->getQuery()->getResult();;

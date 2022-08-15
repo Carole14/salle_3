@@ -37,30 +37,18 @@ class StructuresType extends AbstractType
                 ],
             ])
             ->add('mot_de_passe', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'label' => 'mot de passe de la structure',
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'nouveau mot de passe'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'entrer le mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
+               
             ])
             ->add('active', ChoiceType::class, [
+                'label' => 'active/inactive',
                 'choices' => [
                     'active' => 'true',
                     'inactive' => 'false',
                 ]
             ])
             ->add ('struturesperms', EntityType::class, [
+                'label' => 'liste des permissions possibles',
                 'class' => Perms::class,
                 'multiple' => true,
                 'expanded' => true,

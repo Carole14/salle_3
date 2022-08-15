@@ -6,32 +6,43 @@
 
 {% include 'navigation.html.twig' %}
 
-    <h1>Listes des structures</h1>
+    <h1 class = "structure">Listes des structures</h1>
 
-{% for structure in structures %}
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Nom</th>
-                <td>{{ structure.nom }}</td>
-            </tr>
-               <tr>
-                <th>Description</th>
-                <td>{{ structure.Description }}</td>
-            </tr>        
+{{ form_start(form)}}
+    	<div class="sidebar__item">
+		{{ form_row(form.q, {"attr": {"class": "form-control pl-30", "id": "site-search"}}) }}
+	</div>
+    {{ form_end(form) }}
+
+{% for structures in structure %}
+    <table class="table"> 
+    <div class="col">
+            <ul class = "titre">
+                <li>Nom</li>
+                <ul class = "liste">
+                <li>{{ structures.nom }}</li> 
+                </ul>
+            </ul>
+               <ul class = "titre">
+                <li>Description</li>
+                <ul class = "liste">
+                <li>{{ structures.Description }}</li>
+                </ul>       
         {% else %}
             <tr>
                 <td colspan="5">Pas de structures trouvées</td>
             </tr>
         {% endfor %}
-        </tbody>
+         
+      
+       </div>
     </table>
 
 
 
     {% if app.user.roles[0] is same as("ROLE_ADMIN") %}
 
-    <a href="{{ path('app_structures_new') }}">Créer une nouvelle structure</a>
+    <a class = "nouvelle" href="{{ path('app_structures_new') }}">Créer une nouvelle structure</a>
 
 {% endif %}
 

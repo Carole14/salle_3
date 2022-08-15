@@ -39,7 +39,23 @@ class StructuresRepository extends ServiceEntityRepository
         }
     }
 
+ /**
+     * Get parteners with query search
+     * 
+     */
+    public function findSearch($search)
+    {
 
+        $query = $this
+        ->createQueryBuilder('p');
+
+        if(!empty($search)) {
+            $query = $query
+            ->andWhere('p.nom LIKE :q')
+            ->setParameter('q', "%{$search}%");
+        }
+        return $query = $query->getQuery()->getResult();;
+    }
 
 //    /**
 //     * @return Structures[] Returns an array of Structures objects
