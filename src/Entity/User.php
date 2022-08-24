@@ -29,14 +29,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'partenaire', targetEntity: Partenaires::class)]
-    private Collection $partenaires;
-
-    public function __construct()
-    {
-        $this->partenaires = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -107,33 +99,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return Collection<int, Partenaires>
-     */
-    public function getPartenaires(): Collection
-    {
-        return $this->partenaires;
-    }
-
-    public function addPartenaire(Partenaires $partenaire): self
-    {
-        if (!$this->partenaires->contains($partenaire)) {
-            $this->partenaires->add($partenaire);
-            $partenaire->setPartenaire($this);
-        }
-
-        return $this;
-    }
-
-    public function removePartenaire(Partenaires $partenaire): self
-    {
-        if ($this->partenaires->removeElement($partenaire)) {
-            // set the owning side to null (unless already changed)
-            if ($partenaire->getPartenaire() === $this) {
-                $partenaire->setPartenaire(null);
-            }
-        }
-
-        return $this;
-    }
+    
 }

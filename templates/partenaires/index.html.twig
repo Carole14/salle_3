@@ -13,43 +13,41 @@
 		{{ form_row(form.q, {"attr": {"class": "form-control pl-30", "id": "site-search"}}) }}
 	</div>
     {{ form_end(form) }}
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Active</th>
-                <th>Email</th>
-                <th>Mot_de_passe</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for partenaire in partenaires %}
-            <tr>
-                <td>{{ partenaire.id }}</td>
-                <td>{{ partenaire.nom }}</td>
-                <td>{{ partenaire.active ? 'Yes' : 'No' }}</td>
-                <td>{{ partenaire.email }}</td>
-                <td>{{ partenaire.motDePasse }}</td>
-                <td>
-                    <a href="{{ path('app_partenaires_show', {'id': partenaire.id}) }}">Montrer</a>
-                    <a href="{{ path('app_partenaires_edit', {'id': partenaire.id}) }}">Editer</a>
-                </td>
-            </tr>
+    {% for partenaire in partenaires %}
+ <table class="table"> 
+    <div class="col">
+    <ul>
+            <ul class = "titre">
+                <li>Nom</li>
+                <ul class = "liste">
+                <li>{{ partenaire.nom }}</li> 
+                </ul>
+            </ul>
+           
+                 <ul class = "titre">
+            <li>Permissions</li>
+            <ul class = "liste">
+           {% for partPerm in partenaire.getPartperms() %}
+                <li>{{ partPerm.getNom2() }}</li>
+              {% endfor %}
+            </ul> 
+        </ul>
         {% else %}
             <tr>
                 <td colspan="6">pas de partenaires trouvés</td>
             </tr>
         {% endfor %}
-        </tbody>
+         </div>
     </table>
+
+    
 
     
     {% if app.user.roles[0] is same as("ROLE_ADMIN") %}
 
     <a href="{{ path('app_partenaires_new') }}">Créer un nouveau partenaire</a>
        
+
 {% endif %}
+
 {% endblock %}

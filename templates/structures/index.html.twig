@@ -14,20 +14,36 @@
 	</div>
     {{ form_end(form) }}
 
-{% for structures in structure %}
+{% for structure in structures %}
+
+
     <table class="table"> 
     <div class="col">
+    <ul>
             <ul class = "titre">
                 <li>Nom</li>
                 <ul class = "liste">
-                <li>{{ structures.nom }}</li> 
+                <li>{{ structure.nom }}</li> 
                 </ul>
             </ul>
                <ul class = "titre">
                 <li>Description</li>
                 <ul class = "liste">
-                <li>{{ structures.Description }}</li>
-                </ul>       
+                <li>{{ structure.Description }}</li>
+                </ul> 
+            <ul class = "titre">
+                <li>adresse</li>
+                <ul class = "liste">
+                <li>{{ structure.adresse }}</li>
+            </ul> 
+            <ul class = "titre">
+            <li>Permissions</li>
+            <ul class = "liste">
+           {% for structurePerm in structure.getStruturesperms() %}
+                <li>{{ structurePerm.getNom2() }}</li>
+              {% endfor %}
+            </ul> 
+    </ul>     
         {% else %}
             <tr>
                 <td colspan="5">Pas de structures trouvées</td>

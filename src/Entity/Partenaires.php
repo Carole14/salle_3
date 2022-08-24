@@ -31,9 +31,6 @@ class Partenaires
     #[ORM\Column(length: 255)]
     private ?string $mot_de_passe = null;
 
-    #[ORM\ManyToOne(inversedBy: 'partenaires')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?User $partenaire = null;
 
     #[ORM\ManyToMany(targetEntity: Perms::class, mappedBy: 'partperms')]
     private Collection $partperms;
@@ -102,17 +99,6 @@ class Partenaires
         return $this;
     }
 
-    public function getPartenaire(): ?User
-    {
-        return $this->partenaire;
-    }
-
-    public function setPartenaire(?User $partenaire): self
-    {
-        $this->partenaire = $partenaire;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Perms>

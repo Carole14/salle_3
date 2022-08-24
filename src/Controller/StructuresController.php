@@ -5,50 +5,52 @@ namespace App\Controller;
 use App\Data\SearchData;
 use App\Form\SearchForm;
 use App\Entity\Structures;
+use App\Entity\User;
 use App\Form\StructuresType;
+use App\Repository\PermsRepository;
 use App\Repository\StructuresRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
-
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[Route('/structures')]
 class StructuresController extends AbstractController
 {
+
     #[Route('/', name: 'app_structures_index', methods: ['GET', 'POST'])]
-    public function index(Request $request, StructuresRepository $structuresRepository): Response
+    public function index(Request $request, StructuresRepository $structuresRepository, PermsRepository $permsRepository): Response
     {
         $data = new SearchData();
         $form = $this->createForm(SearchForm::class, $data);
         $structureFilter = $structuresRepository->findAll() ;
+        $perms = $permsRepository->findAll();
         $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()){
                 $structureFilter = $structuresRepository->findSearch($request->get('q'));
             }
-
         return $this->render('structures/index.html.twig', [
-            'structure' => $structureFilter,
+            'structures' => $structureFilter,
             'form' => $form->createView()
         ]);
     }
 
     #[Route('/new', name: 'app_structures_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, StructuresRepository $structuresRepository): Response
+    public function new(Request $request, StructuresRepository $structuresRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $structure = new Structures();
+        $user = new User();
         $form = $this->createForm(StructuresType::class, $structure);
         $form->handleRequest($request);
-        
-        
-
-    
-
         if ($form->isSubmitted() && $form->isValid()) {
+            $structure->setMotDePasse($passwordHasher->hashPassword(
+                $user,
+                $form->get('mot_de_passe')->getData()
+            ));
             $structuresRepository->add($structure, true);
-
-            return $this->redirectToRoute('app_structures_index', [], Response::HTTP_SEE_OTHER);
-        }
+        return $this->redirectToRoute('app_structures_index', [], Response::HTTP_SEE_OTHER);
+     }
 
         return $this->renderForm('structures/new.html.twig', [
             'structure' => $structure,

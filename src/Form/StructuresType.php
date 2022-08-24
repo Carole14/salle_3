@@ -27,6 +27,9 @@ class StructuresType extends AbstractType
             ->add('Description', TextType::class, [
                 'label' => 'description',
             ])
+            ->add('adresse', TextType::class, [
+                'label' => 'adresse',
+            ])
             ->add('email', EmailType::class,[
                 'label' => 'Email de la structure',
                 'attr' => ['Merci de saisir le mail de la structure'],
@@ -38,7 +41,6 @@ class StructuresType extends AbstractType
             ])
             ->add('mot_de_passe', PasswordType::class, [
                 'label' => 'mot de passe de la structure',
-               
             ])
             ->add('active', ChoiceType::class, [
                 'label' => 'active/inactive',
