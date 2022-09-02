@@ -7,6 +7,7 @@
 {% include 'navigation.html.twig' %}
 
     <h1 class = "structure">Listes des structures</h1>
+    
 
 {{ form_start(form)}}
     	<div class="sidebar__item">
@@ -37,6 +38,11 @@
                 <li>{{ structure.adresse }}</li>
             </ul> 
             <ul class = "titre">
+                <li>acitf/Inactif</li>
+                <ul class = "liste">
+                <li>{{ structure.active ? 'Oui' : 'Non' }}</li>
+            </ul> 
+            <ul class = "titre">
             <li>Permissions</li>
             <ul class = "liste">
            {% for structurePerm in structure.getStruturesperms() %}
@@ -56,10 +62,19 @@
 
 
 
-    {% if app.user.roles[0] is same as("ROLE_ADMIN") %}
+   {% if app.user.roles[0] is same as("ROLE_ADMIN") %}
 
     <a class = "nouvelle" href="{{ path('app_structures_new') }}">Créer une nouvelle structure</a>
 
-{% endif %}
+  
+
+   {% else %}
+
+  {% for structure in structures %}  
+<p>Nom : {{ app.user.email }}</p>
+
+{% endfor %}
+ {% endif %}
+
 
 {% endblock %}

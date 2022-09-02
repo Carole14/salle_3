@@ -6,7 +6,7 @@
 
 {% include 'navigation.html.twig' %}
 
-    <h1>Liste des partenaires</h1>
+    <h1 class = "partenaire">Liste des partenaires</h1>
 
       {{ form_start(form)}}
     	<div class="sidebar__item">
@@ -15,12 +15,18 @@
     {{ form_end(form) }}
     {% for partenaire in partenaires %}
  <table class="table"> 
-    <div class="col">
+    <div class="colonne">
     <ul>
             <ul class = "titre">
                 <li>Nom</li>
                 <ul class = "liste">
                 <li>{{ partenaire.nom }}</li> 
+                </ul>
+            </ul>
+             <ul class = "titre">
+                <li>Actif/Inactif</li>
+                <ul class = "liste">
+                <li>{{ partenaire.active ? 'Oui' : 'Non' }}</li> 
                 </ul>
             </ul>
            
@@ -41,12 +47,12 @@
     </table>
 
     
-
     
     {% if app.user.roles[0] is same as("ROLE_ADMIN") %}
 
-    <a href="{{ path('app_partenaires_new') }}">Créer un nouveau partenaire</a>
-       
+    <a class = "nouvelle" href="{{ path('app_partenaires_new') }}">Créer un nouveau partenaire</a>
+
+ 
 
 {% endif %}
 

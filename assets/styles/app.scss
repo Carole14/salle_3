@@ -53,6 +53,12 @@ h1 {
     border-color: #A2A3BB;
 }
 
+.colonne {
+    border-width: 2px;
+    border-style: solid;
+    border-color: #A2A3BB;
+}
+
 .liste {
     list-style-type: none;
     color: black;
@@ -65,13 +71,18 @@ h1 {
 }
 
 @media only screen and (min-width: 992px) {
-    .col {column-count: 4;}
+    .col {column-count: 5;}
 }
 
-.structure {
+@media only screen and (min-width: 992px) {
+    .colonne {column-count: 4;}
+}
+
+.structure, .partenaire {
     line-height: 7rem;
 }
 
 .nouvelle {
     color: #9395D3;
 }
+

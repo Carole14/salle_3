@@ -58,7 +58,7 @@ class StructuresController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_structures_show', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'app_structures_show', methods: ['GET'])]
     public function show(Structures $structure): Response
     {
         return $this->render('structures/show.html.twig', [
