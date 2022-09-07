@@ -18,12 +18,6 @@ class Structures
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $mot_de_passe = null;
-
     #[ORM\ManyToMany(targetEntity: Perms::class, inversedBy: 'structures')]
     private Collection $struturesperms;
 
@@ -61,29 +55,6 @@ class Structures
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getMotDePasse(): ?string
-    {
-        return $this->mot_de_passe;
-    }
-
-    public function setMotDePasse(string $mot_de_passe): self
-    {
-        $this->mot_de_passe = $mot_de_passe;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Perms>

@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Form\StructuresType;
 use App\Repository\PermsRepository;
 use App\Repository\StructuresRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,18 +38,23 @@ class StructuresController extends AbstractController
     }
 
     #[Route('/new', name: 'app_structures_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, StructuresRepository $structuresRepository, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, StructuresRepository $structuresRepository, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository): Response
     {
         $structure = new Structures();
         $user = new User();
         $form = $this->createForm(StructuresType::class, $structure);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $structure->setMotDePasse($passwordHasher->hashPassword(
-                $user,
-                $form->get('mot_de_passe')->getData()
-            ));
             $structuresRepository->add($structure, true);
+            $user
+            ->setPassword($passwordHasher->hashPassword(
+                $user,
+                $request->request->get('email')
+            ))
+            ->setRoles([$request->request->get('role')])
+            ->setStructure($structure)
+            ->setEmail($request->request->get('email'));
+            $userRepository->add($user, true);
         return $this->redirectToRoute('app_structures_index', [], Response::HTTP_SEE_OTHER);
      }
 

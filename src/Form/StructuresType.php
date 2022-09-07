@@ -30,18 +30,6 @@ class StructuresType extends AbstractType
             ->add('adresse', TextType::class, [
                 'label' => 'adresse',
             ])
-            ->add('email', EmailType::class,[
-                'label' => 'Email de la structure',
-                'attr' => ['Merci de saisir le mail de la structure'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Entrer le mail de la structure',
-                    ]),
-                ],
-            ])
-            ->add('mot_de_passe', PasswordType::class, [
-                'label' => 'mot de passe de la structure',
-            ])
             ->add('active', ChoiceType::class, [
                 'label' => 'active/inactive',
                 'choices' => [
