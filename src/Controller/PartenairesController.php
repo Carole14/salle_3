@@ -7,6 +7,7 @@ use App\Entity\Partenaires;
 use App\Form\PartenairesType;
 use App\Entity\User;
 use App\Form\SearchForm;
+use App\Repository\UserRepository;
 use App\Repository\PartenairesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +37,7 @@ class PartenairesController extends AbstractController
     }
 
     #[Route('/new', name: 'app_partenaires_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PartenairesRepository $partenairesRepository, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, PartenairesRepository $partenairesRepository, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository): Response
     {
         $partenaire = new Partenaires();
         $user = new User();
@@ -44,11 +45,16 @@ class PartenairesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $partenaire->setMotDePasse($passwordHasher->hashPassword(
+            $partenairesRepository->add($partenaire, true);
+            $user
+            ->setPassword($passwordHasher->hashPassword(
                 $user,
-                $form->get('mot_de_passe')->getData()
-            ));
-
+                $request->request->get('email')
+            ))
+            ->setRoles([$request->request->get('role')])
+            ->setPartenaire($partenaire)
+            ->setEmail($request->request->get('email'));
+            $userRepository->add($user, true);
             $partenairesRepository->add($partenaire, true);
 
             return $this->redirectToRoute('app_partenaires_index', [], Response::HTTP_SEE_OTHER);

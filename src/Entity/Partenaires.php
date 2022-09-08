@@ -21,15 +21,7 @@ class Partenaires
     #[ORM\Column]
     private ?bool $active = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
 
-    /**
-     * @var string The hashed password
-     */
-
-    #[ORM\Column(length: 255)]
-    private ?string $mot_de_passe = null;
 
 
     #[ORM\ManyToMany(targetEntity: Perms::class, mappedBy: 'partperms')]
@@ -37,6 +29,9 @@ class Partenaires
 
     #[ORM\OneToMany(mappedBy: 'partenaire', targetEntity: Structures::class)]
     private Collection $structures;
+
+    #[ORM\OneToOne(mappedBy: 'partenaire', cascade: ['persist', 'remove'])]
+    private ?User $user = null;
 
     
 
@@ -71,30 +66,6 @@ class Partenaires
     public function setActive(bool $active): self
     {
         $this->active = $active;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getMotDePasse(): ?string
-    {
-        return $this->mot_de_passe;
-    }
-
-    public function setMotDePasse(string $mot_de_passe): self
-    {
-        $this->mot_de_passe = $mot_de_passe;
 
         return $this;
     }
@@ -153,6 +124,28 @@ class Partenaires
                 $structure->setPartenaire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setPartenaire(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getPartenaire() !== $this) {
+            $user->setPartenaire($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }
