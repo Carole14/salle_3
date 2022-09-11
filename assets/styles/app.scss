@@ -1,0 +1,113 @@
+@import '~bootstrap/scss/bootstrap';
+
+h1 {
+    text-align: center;
+}
+
+.vertical-line{
+    border-left: 2px solid;
+    display: inline-block;
+    height: 130px;
+    margin: 0 20px;
+    text-align: center;
+}
+
+.form-signin {
+	width: 100%;
+	max-width: 330px;
+	padding: 15px;
+	margin: auto;
+    color: #9395D3;
+    
+}
+
+.form-signin input[type='email'] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+    color: #9395D3;
+}
+
+.form-signin input[type='password'] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+    color: #9395D3;
+}
+.button {
+    background: #FBF9FF;
+    color: #9395D3;
+}
+
+.btn {
+    text-align: center;
+    background-color: #9395D3;
+
+}
+
+.col, .colonne {
+    border-width: 2px;
+    border-style: solid;
+    border-color: #A2A3BB;
+}
+
+.liste {
+    list-style-type: none;
+    color: black;
+    height: 1rem;
+
+}
+
+.titre {
+    color :#9395D3;
+    list-style-type: none;
+}
+
+@media only screen and (min-width: 992px) {
+    .col {column-count: 5;}
+}
+
+@media only screen and (min-width: 992px) {
+    .colonne {column-count: 4;}
+}
+
+.structure, .partenaire, .profil {
+    line-height: 7rem;
+}
+
+.partenaire {
+    text-align:center;
+}
+
+.nouvelle, .retour {
+    color: #9395D3;
+}
+
+.liste {
+    color: black;
+}
+
+.form {
+	
+    text-align: center;
+    vertical-align: middle;
+    
+}
+
+.nouveau {
+    line-height: 9rem;
+}
+
+.formulaire {
+    line-height: 2rem;
+    text-align: center;
+}
+
+.retour, .enregistrer {
+    line-height: 4rem;
+    text-align: center;
+}
+
+.passe {
+    line-height: 2rem;
+}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Perms{% endblock %}
+
+{% block body %}
+    <h1>Perms</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ perm.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ perm.nom2 ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_perms_index') }}">back to list</a>
+
+    <a href="{{ path('app_perms_edit', {'id': perm.id}) }}">edit</a>
+
+    {{ include('perms/_delete_form.html.twig') }}
+{% endblock %}

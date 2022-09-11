@@ -1,0 +1,51 @@
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="{{ asset('logo.png')}}" alt="logo" width="90" height="60">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto ">
+        <li class="nav-item">
+          <a class="nav-link active" href="{{ path('app_login')}}">Accueil</a>
+          </li>
+          {% if is_granted('ROLE_ADMIN') %}
+        <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{{ path('app_partenaires_new')}}">Créer un partenaire</a> 
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{{ path('app_structures_new')}}">créer une strucure</a>
+        </li>
+      {% endif %}
+
+      {% if is_granted('ROLE_PART') or ('ROLE_ADMIN') %}
+ 
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{{ path('app_partenaires_index')}}">Liste des partenaires</a>
+        </li>
+{% endif %}
+{% if is_granted('ROLE_ADMIN') or ('ROLE_STRUC') %}
+
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{{ path('app_structures_index')}}">Liste des structures</a>
+        </li>
+        {% endif %}
+
+{% if is_granted('ROLE_STRUC') %}
+
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{{ path('app_account')}}">Page profil</a>
+        </li>
+         {% endif %}
+           {% if app.user %}
+           <li class="nav-item">
+ <a class="nav-link" aria-current="page" href="{{ path('app_logout')}}">Deconnexion </a>
+ </li>
+ {% endif %}
+          </ul>
+ 
+    </div>
+  </div>
+</nav>

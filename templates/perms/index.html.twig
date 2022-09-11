@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Perms index{% endblock %}
+
+{% block body %}
+    <h1>Perms index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom2</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for perm in perms %}
+            <tr>
+                <td>{{ perm.id }}</td>
+                <td>{{ perm.nom2 }}</td>
+                <td>
+                    <a href="{{ path('app_perms_show', {'id': perm.id}) }}">show</a>
+                    <a href="{{ path('app_perms_edit', {'id': perm.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_perms_new') }}">Create new</a>
+{% endblock %}

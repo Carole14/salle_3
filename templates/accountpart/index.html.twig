@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}page de profil{% endblock %}
+
+{% block body %}
+
+{% include 'navigation.html.twig' %}
+
+    <h1 class = "profil">Page de profil</h1>
+     <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ app.user.getPartenaire().getNom() }}</td>
+            </tr>
+              <tr>
+                <th>Active</th>
+                <td>{{ app.user.getStructure().isActive() ? 'Oui' : 'Non' }}</td>
+            </tr>
+             <tr>
+             <th>Permissions</th>
+           {% for structurePerm in app.user.getStructure().getStruturesperms() %}
+                <td>{{ structurePerm.getNom2()}}</td>
+              {% endfor %}
+  </tr>
+     <tr>
+        <th>Structures</th>
+                <td>{{ app.user.getPartenaire().getStructure().getNom() }}</td>
+  </tr>
+            
+        </tbody>
+    </table>
+
+{% endblock %}

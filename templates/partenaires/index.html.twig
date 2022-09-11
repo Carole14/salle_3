@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des partenaires{% endblock %}
+
+{% block body %}
+
+{% include 'navigation.html.twig' %}
+
+    <h1 class = "partenaire">Liste des partenaires</h1>
+
+    {{ form_start(form)}}
+    	<div class="sidebar__item">
+		{{ form_row(form.q, {"attr": {"class": "form-control pl-30", "id": "site-search"}}) }}
+	</div>
+    {{ form_end(form) }}
+
+
+    {% for partenaire in partenaires %}
+ <table class="table"> 
+    <div class="colonne">
+    <ul>
+            <ul class = "titre">
+                <li>Nom</li>
+                <ul class = "liste">
+                <li>{{ partenaire.nom }}</li> 
+                </ul>
+            </ul>
+             <ul class = "titre">
+                <li>Actif/Inactif</li>
+                <ul class = "liste">
+                <li>{{ partenaire.active ? 'Oui' : 'Non' }}</li> 
+                </ul>
+            </ul>
+           
+                 <ul class = "titre">
+            <li>Permissions</li>
+            <ul class = "liste">
+           {% for partPerm in partenaire.getPartperms() %}
+                <li>{{ partPerm.getNom2() }}</li>
+              {% endfor %}
+            </ul> 
+        </ul>
+        {% else %}
+            <tr>
+                <td colspan="6">pas de partenaires trouvés</td>
+            </tr>
+        {% endfor %}
+         </div>
+    </table>
+
+    
+    
+    {% if app.user.roles[0] is same as("ROLE_ADMIN") %}
+
+    <a class = "nouvelle" href="{{ path('app_partenaires_new') }}">Créer un nouveau partenaire</a>
+
+ 
+
+{% endif %}
+
+{% endblock %}

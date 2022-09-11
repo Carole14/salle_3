@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau partenaire{% endblock %}
+
+{% block body %}
+
+{% include 'navigation.html.twig' %}
+
+   <div class = "partenaire">
+    </div>
+
+    {{ include('partenaires/_form.html.twig') }}
+   
+<div>
+    <a class = "retour" href="{{ path('app_partenaires_index') }}">Retourner à la liste des partenaires</a>
+</div>
+{% endblock %}
