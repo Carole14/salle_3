@@ -1,4 +1,19 @@
+<h1 class = "nouveau">Créer un nouveau partenaire</h1>
+
+<div class = "formulaire">
 {{ form_start(form) }}
     {{ form_widget(form) }}
+</div>
+ <div class= "form"> 
+        <label name="email">Email du partenaire</label>
+        <input type="text" name="email"/> 
+        <div class = "passe">
+        <label name="password">Mot de passe du partenaire</label>
+        <input type="password" name="password"/> 
+        <input type="hidden" name="role" value="ROLE_PART" /> 
+        </div>
+    </div>
+    <div class = "enregistrer">
     <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+    </div>
 {{ form_end(form) }}

@@ -55,7 +55,7 @@ class PartenairesController extends AbstractController
             ->setPartenaire($partenaire)
             ->setEmail($request->request->get('email'));
             $userRepository->add($user, true);
-            $partenairesRepository->add($partenaire, true);
+            //$partenairesRepository->add($partenaire, true);
 
             return $this->redirectToRoute('app_partenaires_index', [], Response::HTTP_SEE_OTHER);
         }

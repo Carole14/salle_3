@@ -6,9 +6,12 @@
 
 {% include 'navigation.html.twig' %}
 
-    <h1>Créer un nouveau partenaire</h1>
+   <div class = "partenaire">
+    </div>
 
     {{ include('partenaires/_form.html.twig') }}
-
-    <a href="{{ path('app_partenaires_index') }}">Retourner à la liste des partenaires</a>
+   
+<div>
+    <a class = "retour" href="{{ path('app_partenaires_index') }}">Retourner à la liste des partenaires</a>
+</div>
 {% endblock %}

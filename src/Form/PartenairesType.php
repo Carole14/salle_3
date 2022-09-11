@@ -23,18 +23,6 @@ class PartenairesType extends AbstractType
             ->add('nom', TextType::class,[
                 'label' => 'nom',
             ])
-            ->add('email', EmailType::class,[
-                'label' => 'Email du partenaire',
-                'attr' => ['Merci de saisir le mail du partenaire'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Entrer le mail du partenaire',
-                    ]),
-                ],
-            ])
-            ->add('mot_de_passe', PasswordType::class, [
-                'label' => 'mot de passe du partenaire',             
-                ])
             
             ->add('active', ChoiceType::class, [
                 'label' => 'Actif/inactif',

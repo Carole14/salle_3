@@ -8,11 +8,13 @@
 
     <h1 class = "partenaire">Liste des partenaires</h1>
 
-      {{ form_start(form)}}
+    {{ form_start(form)}}
     	<div class="sidebar__item">
 		{{ form_row(form.q, {"attr": {"class": "form-control pl-30", "id": "site-search"}}) }}
 	</div>
     {{ form_end(form) }}
+
+
     {% for partenaire in partenaires %}
  <table class="table"> 
     <div class="colonne">

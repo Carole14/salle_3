@@ -18,10 +18,7 @@ h1 {
 	padding: 15px;
 	margin: auto;
     color: #9395D3;
-}
-
-.form-signin .form-floating:focus-within {
-	z-index: 2;
+    
 }
 
 .form-signin input[type='email'] {
@@ -45,15 +42,10 @@ h1 {
 .btn {
     text-align: center;
     background-color: #9395D3;
+
 }
 
-.col {
-    border-width: 2px;
-    border-style: solid;
-    border-color: #A2A3BB;
-}
-
-.colonne {
+.col, .colonne {
     border-width: 2px;
     border-style: solid;
     border-color: #A2A3BB;
@@ -62,6 +54,7 @@ h1 {
 .liste {
     list-style-type: none;
     color: black;
+    height: 1rem;
 
 }
 
@@ -82,7 +75,39 @@ h1 {
     line-height: 7rem;
 }
 
-.nouvelle {
+.partenaire {
+    text-align:center;
+}
+
+.nouvelle, .retour {
     color: #9395D3;
 }
 
+.liste {
+    color: black;
+}
+
+.form {
+	
+    text-align: center;
+    vertical-align: middle;
+    
+}
+
+.nouveau {
+    line-height: 9rem;
+}
+
+.formulaire {
+    line-height: 2rem;
+    text-align: center;
+}
+
+.retour, .enregistrer {
+    line-height: 4rem;
+    text-align: center;
+}
+
+.passe {
+    line-height: 2rem;
+}

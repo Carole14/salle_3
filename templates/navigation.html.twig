@@ -31,6 +31,10 @@
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="{{ path('app_structures_index')}}">Liste des structures</a>
         </li>
+        {% endif %}
+
+{% if is_granted('ROLE_STRUC') %}
+
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="{{ path('app_account')}}">Page profil</a>
         </li>

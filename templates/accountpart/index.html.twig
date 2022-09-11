@@ -1,20 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccountpartController!{% endblock %}
+{% block title %}page de profil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% include 'navigation.html.twig' %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/macbook/salle_3/src/Controller/AccountpartController.php'|file_link(0) }}">src/Controller/AccountpartController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/macbook/salle_3/templates/accountpart/index.html.twig'|file_link(0) }}">templates/accountpart/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <h1 class = "profil">Page de profil</h1>
+     <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ app.user.getPartenaire().getNom() }}</td>
+            </tr>
+              <tr>
+                <th>Active</th>
+                <td>{{ app.user.getStructure().isActive() ? 'Oui' : 'Non' }}</td>
+            </tr>
+             <tr>
+             <th>Permissions</th>
+           {% for structurePerm in app.user.getStructure().getStruturesperms() %}
+                <td>{{ structurePerm.getNom2()}}</td>
+              {% endfor %}
+  </tr>
+     <tr>
+        <th>Structures</th>
+                <td>{{ app.user.getPartenaire().getStructure().getNom() }}</td>
+  </tr>
+            
+        </tbody>
+    </table>
+
 {% endblock %}
