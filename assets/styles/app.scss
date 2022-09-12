@@ -71,15 +71,15 @@ h1 {
     .colonne {column-count: 4;}
 }
 
-.structure, .partenaire, .profil {
-    line-height: 7rem;
+.structure, .partenaire, .profil, .nouveau {
+    line-height: 9rem;
 }
 
 .partenaire {
     text-align:center;
 }
 
-.nouvelle, .retour {
+.nouvelle, .lien {
     color: #9395D3;
 }
 
@@ -94,20 +94,21 @@ h1 {
     
 }
 
-.nouveau {
-    line-height: 9rem;
-}
-
 .formulaire {
     line-height: 2rem;
     text-align: center;
 }
 
-.retour, .enregistrer {
+.retour, .lien {
     line-height: 4rem;
     text-align: center;
 }
 
 .passe {
     line-height: 2rem;
+}
+
+.enregistrer, .table {
+    line-height: 6rem;
+    text-align: center;
 }

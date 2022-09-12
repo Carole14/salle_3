@@ -14,6 +14,7 @@
 	</div>
     {{ form_end(form) }}
 
+<div class = "liste2">
 
     {% for partenaire in partenaires %}
  <table class="table"> 
@@ -53,7 +54,7 @@
     {% if app.user.roles[0] is same as("ROLE_ADMIN") %}
 
     <a class = "nouvelle" href="{{ path('app_partenaires_new') }}">Créer un nouveau partenaire</a>
-
+</div>
  
 
 {% endif %}
