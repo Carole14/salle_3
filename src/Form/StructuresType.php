@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Partenaires;
 use App\Entity\Perms;
 use App\Entity\Structures;
 use Symfony\Component\Form\AbstractType;

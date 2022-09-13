@@ -40,6 +40,11 @@
                 <li>{{ partPerm.getNom2() }}</li>
               {% endfor %}
             </ul> 
+            {% if is_granted('ROLE_ADMIN') %}
+             <ul>   
+                    <a class="modifier" href="{{ path('app_partenaires_edit', {'id': partenaire.id}) }}">Modifier</a>
+                </ul>
+                {% endif %}
         </ul>
         {% else %}
             <tr>
