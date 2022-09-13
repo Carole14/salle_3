@@ -43,7 +43,11 @@ class StructuresType extends AbstractType
                 'class' => Perms::class,
                 'multiple' => true,
                 'expanded' => true,
-            ]);
+            ])
+            ->add ('partenaire', EntityType::class, [
+                'label' => 'liste des partenaires possibles',
+                'class' => PartenairesType::class,   
+            ]) ;
           
         ;
     }
