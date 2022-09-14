@@ -46,7 +46,7 @@ class StructuresType extends AbstractType
             ])
             ->add ('partenaire', EntityType::class, [
                 'label' => 'liste des partenaires possibles',
-                'class' => PartenairesType::class,   
+                'class' => Partenaires::class,   
             ]) ;
           
         ;
