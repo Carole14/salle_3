@@ -7,10 +7,11 @@
 {% include 'navigation.html.twig' %}
 
     <h1 class="partenaire">Modifier un partenaire</h1>
-
+<p>
     {{ include('partenaires/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-
+ {{ include('partenaires/_delete_form.html.twig') }}
+ </p>
     <a href="{{ path('app_partenaires_index') }}">Retourner à la liste des partenaires</a>
 
-    {{ include('partenaires/_delete_form.html.twig') }}
+   
 {% endblock %}

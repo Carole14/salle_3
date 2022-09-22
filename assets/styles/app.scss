@@ -2,6 +2,7 @@
 
 h1 {
     text-align: center;
+    font-family : Monaco;
     
 }
 
@@ -90,27 +91,28 @@ h1 {
 
 .form {
 	
-    text-align: center;
+    
     vertical-align: middle;
     
 }
 
 .formulaire {
     line-height: 2rem;
-    text-align: center;
+    
 }
 
 .retour, .lien {
     line-height: 4rem;
-    text-align: center;
+    
 }
 
-.passe {
-    line-height: 2rem;
-}
+
 
 .enregistrer, .table {
     line-height: 6rem;
-    text-align: center;
+    
 }
 
+.table, .formulaire, p {
+    font-family : Arial;
+}

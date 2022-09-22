@@ -7,10 +7,10 @@
 {% include 'navigation.html.twig' %}
 
     <h1 class="structure">Modifier la structure</h1>
-
+<p>
     {{ include('structures/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
     {{ include('structures/_delete_form.html.twig') }}
-   
+   </p>
 
     <a class="lien" href="{{ path('app_structures_index') }}">Retourner à la liste des structures</a>
 

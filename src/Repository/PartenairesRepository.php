@@ -22,12 +22,11 @@ class PartenairesRepository extends ServiceEntityRepository
         parent::__construct($registry, Partenaires::class);
     }
 
-    public function add(Partenaires $entity, bool $flush = false): void
+    public function add(Partenaires $entity, bool $flush = false)
     {
         $this->getEntityManager()->persist($entity);
-
         if ($flush) {
-            $this->getEntityManager()->flush();
+            return $this->getEntityManager()->flush();
         }
     }
 
