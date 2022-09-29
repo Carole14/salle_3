@@ -33,6 +33,9 @@ class Structures
     #[ORM\Column(length: 255)]
     private ?string $adresse = null;
 
+    #[ORM\ManyToOne(inversedBy: 'sutrcture')]
+    private ?Partners $partners = null;
+
     public function __construct()
     {
         $this->struturesperms = new ArrayCollection();
@@ -124,6 +127,18 @@ class Structures
     public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getPartners(): ?Partners
+    {
+        return $this->partners;
+    }
+
+    public function setPartners(?Partners $partners): self
+    {
+        $this->partners = $partners;
 
         return $this;
     }

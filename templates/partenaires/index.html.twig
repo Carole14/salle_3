@@ -36,7 +36,7 @@
                  <ul class = "titre">
             <li>Permissions</li>
             <ul class = "liste">
-           {% for partPerm in partenaire.getPartperms() %}
+           {% for partPerm in partenaire.getPermission() %}
                 <li>{{ partPerm.getNom2() }}</li>
               {% endfor %}
             </ul> 
