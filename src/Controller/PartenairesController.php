@@ -17,16 +17,16 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-
 #[Route('/partenaires')]
 class PartenairesController extends AbstractController
 {
     #[Route('/', name: 'app_partenaires_index', methods: ['GET', 'POST'])]
-    public function index (Request $request, PartenairesRepository $partenairesRepository): Response
+    public function index (Request $request, PartenairesRepository $partenairesRepository, PermsRepository $permsRepository): Response
     {
         $data = new SearchData();
         $form = $this->createForm(SearchForm::class, $data);
         $partnerFilter = $partenairesRepository->findAll();
+        $perms = $permsRepository->findAll();
         $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()){
                 $partnerFilter = $partenairesRepository->findSearch($request->get('q'));
@@ -39,18 +39,25 @@ class PartenairesController extends AbstractController
 
     #[Route('/new', name: 'app_partenaires_new', methods: ['GET', 'POST'])]
     public function new(Request $request, PartenairesRepository $partenairesRepository, 
-    UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository, PermsRepository $permsRepository): Response
+    UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository, EntityManagerInterface $entityManager,
+    PermsRepository $permsRepository): Response
     {
         $partenaire = new Partenaires();
         $user = new User();
         $form = $this->createForm(PartenairesType::class, $partenaire);
         $form->handleRequest($request);
-        $partperms = isset($request->request->all()['partenaires']) ? $request->request->all()['partenaires']['partperms'] : $request->request->all(); 
         if ($form->isSubmitted() && $form->isValid()) {
-            for($i = 0; $i < count($partperms); $i++){
-                $partenaire->addPartperm($permsRepository->find($partperms[$i]));
+            //$partenairesRepository->add($partenaire, true);
+            $partenaire
+            ->setNom($request->request->all()["partenaires"]['nom'])
+            ->setActive(true);
+            for($i = 0; $i < count($request->request->all()["partenaires"]['partperms']); $i++){
+                $perms = $permsRepository->find($request->request->all()["partenaires"]['partperms'][$i]);
+                $partenaire->addPartperm($perms);
             }
-            $partenairesRepository->add($partenaire, true);
+            $entityManager->persist($partenaire);
+            $entityManager->flush();
+            //$partenairesRepository->add($partenaire, true);
             $user
             ->setPassword($passwordHasher->hashPassword(
                 $user,
@@ -60,9 +67,8 @@ class PartenairesController extends AbstractController
             ->setPartenaire($partenaire)
             ->setEmail($request->request->get('email'));
             $userRepository->add($user, true);
-
-            return $this->redirectToRoute('app_partenaires_index', [], Response::HTTP_SEE_OTHER);
-        }
+        return $this->redirectToRoute('app_partenaires_index', [], Response::HTTP_SEE_OTHER);
+     }
 
         return $this->renderForm('partenaires/new.html.twig', [
             'partenaire' => $partenaire,
@@ -70,6 +76,34 @@ class PartenairesController extends AbstractController
         ]);
     }
 
+    // #[Route('/new', name: 'app_partenaires_new', methods: ['GET', 'POST'])]
+    // public function new(Request $request, PartenairesRepository $partenairesRepository, 
+    // UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository): Response
+    // {
+    //     $partenaire = new Partenaires();
+    //     $user = new User();
+    //     $form = $this->createForm(PartenairesType::class, $partenaire);
+    //     $form->handleRequest($request);
+    //     dd($request);
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $partenairesRepository->add($partenaire, true);
+    //         $user
+    //         ->setPassword($passwordHasher->hashPassword(
+    //             $user,
+    //             $request->request->get('email')
+    //         ))
+    //         ->setRoles([$request->request->get('role')])
+    //         ->setPartenaire($partenaire)
+    //         ->setEmail($request->request->get('email'));
+    //         $userRepository->add($user, true);
+    //     return $this->redirectToRoute('app_partenaires_index', [], Response::HTTP_SEE_OTHER);
+    //  }
+
+    //     return $this->renderForm('partenaires/new.html.twig', [
+    //         'partenaire' => $partenaire,
+    //         'form' => $form,
+    //     ]);
+    // }
     #[Route('/{id}', name: 'app_partenaires_show', methods: ['GET'])]
     public function show(Partenaires $partenaire): Response
     {

@@ -22,9 +22,7 @@ class Partenaires
     private ?bool $active = null;
 
 
-
-
-    #[ORM\ManyToMany(targetEntity: Perms::class, mappedBy: 'partperms')]
+    #[ORM\ManyToMany(targetEntity: Perms::class, mappedBy: 'partenaires')]
     private Collection $partperms;
 
     #[ORM\OneToMany(mappedBy: 'partenaire', targetEntity: Structures::class)]
@@ -83,7 +81,6 @@ class Partenaires
     {
         if (!$this->partperms->contains($partperm)) {
             $this->partperms->add($partperm);
-            $partperm->addPartperm($this);
         }
 
         return $this;
@@ -91,9 +88,7 @@ class Partenaires
 
     public function removePartperm(Perms $partperm): self
     {
-        if ($this->partperms->removeElement($partperm)) {
-            $partperm->removePartperm($this);
-        }
+        $this->partperms->removeElement($partperm);
 
         return $this;
     }

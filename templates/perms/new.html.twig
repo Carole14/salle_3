@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Perms{% endblock %}
+{% block title %}Nouvelle permissions{% endblock %}
 
 {% block body %}
-    <h1>Create new Perms</h1>
 
+{% include 'navigation.html.twig' %}
+
+    <h1 class = "perms">Créer une nouvelle permission</h1>
+    <p>
     {{ include('perms/_form.html.twig') }}
+    </p>
 
-    <a href="{{ path('app_perms_index') }}">back to list</a>
+<div class = "retour">
+    <a class = "lien" href="{{ path('app_perms_index') }}">Retourner à la liste</a>
+    </div>
 {% endblock %}

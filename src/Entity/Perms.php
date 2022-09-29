@@ -18,7 +18,7 @@ class Perms
   
 
     #[ORM\ManyToMany(targetEntity: Partenaires::class, inversedBy: 'partperms')]
-    private Collection $partperms;
+    private Collection $partenaires;
 
     #[ORM\ManyToMany(targetEntity: Structures::class, mappedBy: 'struturesperms')]
     private Collection $structures;
@@ -33,31 +33,31 @@ class Perms
 
     public function __construct()
     {
-        $this->partperms = new ArrayCollection();
+        $this->partenaires = new ArrayCollection();
         $this->structures = new ArrayCollection();
     }
-
 
     /**
      * @return Collection<int, Partenaires>
      */
-    public function getPartperms(): Collection
+    public function getPartenaires(): Collection
     {
-        return $this->partperms;
+        return $this->partenaires;
     }
 
-    public function addPartperm(Partenaires $partperm): self
+    public function addPartenaire(Partenaires $partenaire): self
     {
-        if (!$this->partperms->contains($partperm)) {
-            $this->partperms->add($partperm);
+        if (!$this->partenaires->contains($partenaire)) {
+            $this->partenaires->add($partenaire);
+            $partenaire->addPartperm($this);
         }
 
         return $this;
     }
 
-    public function removePartperm(Partenaires $partperm): self
+    public function removePartenaire(Partenaires $partenaire): self
     {
-        $this->partperms->removeElement($partperm);
+        $this->partenaires->removeElement($partenaire);
 
         return $this;
     }
