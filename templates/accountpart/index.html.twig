@@ -11,15 +11,15 @@
         <tbody>
             <tr>
                 <th>Nom</th>
-                <td>{{ app.user.getPartenaire().getNom() }}</td>
+                <td>{{ app.user.getPartner().getNom() }}</td>
             </tr>
               <tr>
                 <th>Active</th>
-                <td>{{ app.user.getPartenaire().isActive() ? 'Oui' : 'Non' }}</td>
+                <td>{{ app.user.getPartner().isActive() ? 'Oui' : 'Non' }}</td>
             </tr>
              <tr>
              <th>Permissions</th>
-           {% for partPerm in app.user.getPartenaire().getPartperms() %}
+           {% for partPerm in app.user.getPartner().getPermission() %}
                 <td>{{ partPerm.getNom2()}}</td>
               {% endfor %}
   </tr>

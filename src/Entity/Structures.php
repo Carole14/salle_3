@@ -27,14 +27,14 @@ class Structures
     #[ORM\Column]
     private ?bool $Active = null;
 
-    #[ORM\ManyToOne(inversedBy: 'structures')]
-    private ?Partenaires $partenaire = null;
-
     #[ORM\Column(length: 255)]
     private ?string $adresse = null;
 
     #[ORM\ManyToOne(inversedBy: 'sutrcture')]
     private ?Partners $partners = null;
+
+    #[ORM\ManyToOne(inversedBy: 'structures')]
+    private ?Partners $partner = null;
 
     public function __construct()
     {
@@ -107,17 +107,6 @@ class Structures
         return $this;
     }
 
-    public function getPartenaire(): ?Partenaires
-    {
-        return $this->partenaire;
-    }
-
-    public function setPartenaire(?Partenaires $partenaire): self
-    {
-        $this->partenaire = $partenaire;
-
-        return $this;
-    }
 
     public function getAdresse(): ?string
     {
@@ -131,14 +120,14 @@ class Structures
         return $this;
     }
 
-    public function getPartners(): ?Partners
+    public function getPartner(): ?Partners
     {
-        return $this->partners;
+        return $this->partner;
     }
 
-    public function setPartners(?Partners $partners): self
+    public function setPartner(?Partners $partner): self
     {
-        $this->partners = $partners;
+        $this->partner = $partner;
 
         return $this;
     }

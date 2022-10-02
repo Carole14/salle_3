@@ -24,15 +24,13 @@ class Partners
     #[ORM\ManyToMany(targetEntity: Perms::class, inversedBy: 'partners')]
     private Collection $permission;
 
-    #[ORM\OneToMany(mappedBy: 'partners', targetEntity: Structures::class)]
-    private Collection $sutrcture;
-
-
+    #[ORM\OneToMany(mappedBy: 'partner', targetEntity: Structures::class)]
+    private Collection $structures;
 
     public function __construct()
     {
         $this->permission = new ArrayCollection();
-        $this->sutrcture = new ArrayCollection();
+        $this->structures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,38 +86,39 @@ class Partners
         return $this;
     }
 
-    /**
-     * @return Collection<int, Structures>
-     */
-    public function getSutrcture(): Collection
-    {
-        return $this->sutrcture;
-    }
-
-    public function addSutrcture(Structures $sutrcture): self
-    {
-        if (!$this->sutrcture->contains($sutrcture)) {
-            $this->sutrcture->add($sutrcture);
-            $sutrcture->setPartners($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSutrcture(Structures $sutrcture): self
-    {
-        if ($this->sutrcture->removeElement($sutrcture)) {
-            // set the owning side to null (unless already changed)
-            if ($sutrcture->getPartners() === $this) {
-                $sutrcture->setPartners(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function __toString()
     {
         return $this->nom;
+    }
+
+    /**
+     * @return Collection<int, Structures>
+     */
+    public function getStructures(): Collection
+    {
+        return $this->structures;
+    }
+
+    public function addStructure(Structures $structure): self
+    {
+        if (!$this->structures->contains($structure)) {
+            $this->structures->add($structure);
+            $structure->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStructure(Structures $structure): self
+    {
+        if ($this->structures->removeElement($structure)) {
+            // set the owning side to null (unless already changed)
+            if ($structure->getPartner() === $this) {
+                $structure->setPartner(null);
+            }
+        }
+
+        return $this;
     }
 }

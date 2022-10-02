@@ -24,15 +24,15 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class PartenairesController extends AbstractController
 {
     #[Route('/', name: 'app_partenaires_index', methods: ['GET', 'POST'])]
-    public function index (Request $request, PartnersRepository $partnersRepository, PermsRepository $permsRepository): Response
+    public function index (Request $request, PartenairesRepository $partenairesRepository, PermsRepository $permsRepository): Response
     {
         $data = new SearchData();
         $form = $this->createForm(SearchForm::class, $data);
-        $partnerFilter = $partnersRepository->findAll();
+        $partnerFilter = $partenairesRepository->findAll();
         $perms = $permsRepository->findAll();
         $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()){
-                $partnerFilter = $partnersRepository->findSearch($request->get('q'));
+                $partnerFilter = $partenairesRepository->findSearch($request->get('q'));
             }
             return $this->render('partenaires/index.html.twig', [
                 'partenaires' => $partnerFilter,

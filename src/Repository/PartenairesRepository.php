@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Data\SearchData;
 use App\Entity\Partenaires;
+use App\Entity\Partners;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,10 +20,10 @@ class PartenairesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Partenaires::class);
+        parent::__construct($registry, Partners::class);
     }
 
-    public function add(Partenaires $entity, bool $flush = false)
+    public function add(Partners $entity, bool $flush = false)
     {
         $this->getEntityManager()->persist($entity);
         if ($flush) {
@@ -30,7 +31,7 @@ class PartenairesRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Partenaires $entity, bool $flush = false): void
+    public function remove(Partners $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 

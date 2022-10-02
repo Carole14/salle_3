@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountController extends AbstractController
 {
-    #[Route('/compte', name: 'app_account')]
+    #[Route('/profil', name: 'app_account')]
     public function index(StructuresRepository $repo, Request $request): Response
     {
         $structure = $repo -> findall();

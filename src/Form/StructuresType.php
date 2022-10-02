@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Partenaires;
+use App\Entity\Partners;
 use App\Entity\Perms;
 use App\Entity\Structures;
 use Symfony\Component\Form\AbstractType;
@@ -44,9 +45,9 @@ class StructuresType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add ('partenaire', EntityType::class, [
+            ->add ('partner', EntityType::class, [
                 'label' => 'liste des partenaires possibles',
-                'class' => Partenaires::class,   
+                'class' => Partners::class,   
             ]) ;
           
         ;
