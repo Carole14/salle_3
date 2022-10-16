@@ -32,3 +32,12 @@ Le site contient les pages suivantes :
 - La page pour créer un partenaire
 - La page pour créer une structure
 - La page profil du partenaire ou de la structure
+
+
+Mettre en ligne le site :
+- j'ai créé un compte sur ionos
+- j'ai pris un vps chez one and one
+- Sur le vps, j'ai installé : apache, pg sql, php, composer, symfony et git
+- j'ai activé le SSL : un protocole qui permet del s de https. Pour ce faire, je me suis créé un compte chez zero SSL. J'ai suivi la méthodologie pour générer un certificat
+- j'ai gité salle_3
+- j'ai fait pointé sur salle_3
