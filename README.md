@@ -33,6 +33,22 @@ Le site contient les pages suivantes :
 - La page pour créer une structure
 - La page profil du partenaire ou de la structure
 
+Identifiants :
+
+Administrateur :
+-	Mail : mdupont@admin.com
+-	Mot de passe : mdupont
+
+Structure : 
+-	Mail : structure1@structure.com
+-	Mot de passe : structure
+
+
+Partenaire :
+-	Mail : partenaire1@partenaire.com
+-	Mot de passe : partenaire
+
+
 
 Mettre en ligne le site :
 - j'ai créé un compte sur ionos
