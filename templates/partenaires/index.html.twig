@@ -14,6 +14,7 @@
 	</div>
     {{ form_end(form) }}
 
+<div class = "liste2">
 
     {% for partenaire in partenaires %}
  <table class="table"> 
@@ -26,7 +27,7 @@
                 </ul>
             </ul>
              <ul class = "titre">
-                <li>Actif/Inactif</li>
+                <li>Actif</li>
                 <ul class = "liste">
                 <li>{{ partenaire.active ? 'Oui' : 'Non' }}</li> 
                 </ul>
@@ -35,10 +36,15 @@
                  <ul class = "titre">
             <li>Permissions</li>
             <ul class = "liste">
-           {% for partPerm in partenaire.getPartperms() %}
+           {% for partPerm in partenaire.getPermission() %}
                 <li>{{ partPerm.getNom2() }}</li>
               {% endfor %}
             </ul> 
+            {% if is_granted('ROLE_ADMIN') %}
+             <ul>   
+                    <a class="modifier" href="{{ path('app_partenaires_edit', {'id': partenaire.id}) }}">Modifier</a>
+                </ul>
+                {% endif %}
         </ul>
         {% else %}
             <tr>
@@ -53,7 +59,7 @@
     {% if app.user.roles[0] is same as("ROLE_ADMIN") %}
 
     <a class = "nouvelle" href="{{ path('app_partenaires_new') }}">Créer un nouveau partenaire</a>
-
+</div>
  
 
 {% endif %}

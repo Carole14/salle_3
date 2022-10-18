@@ -26,9 +26,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_structures_index') }}">back to list</a>
+    <a href="{{ path('app_structures_index') }}">Retourner à la liste</a>
 
-    <a href="{{ path('app_structures_edit', {'id': structure.id}) }}">edit</a>
+    <a href="{{ path('app_structures_edit', {'id': structure.id}) }}">Mettre à jour</a>
 
     {{ include('structures/_delete_form.html.twig') }}
 {% endblock %}

@@ -15,51 +15,23 @@ class Perms
     #[ORM\Column]
     private ?int $id = null;
 
-  
-
-    #[ORM\ManyToMany(targetEntity: Partenaires::class, inversedBy: 'partperms')]
-    private Collection $partperms;
-
     #[ORM\ManyToMany(targetEntity: Structures::class, mappedBy: 'struturesperms')]
     private Collection $structures;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     #[ORM\Column(length: 255)]
     private ?string $nom2 = null;
 
+    #[ORM\ManyToMany(targetEntity: Partners::class, mappedBy: 'permission')]
+    private Collection $partners;
     public function __construct()
     {
-        $this->partperms = new ArrayCollection();
         $this->structures = new ArrayCollection();
+        $this->partners = new ArrayCollection();
     }
 
-
-    /**
-     * @return Collection<int, Partenaires>
-     */
-    public function getPartperms(): Collection
+    public function getId(): ?int
     {
-        return $this->partperms;
-    }
-
-    public function addPartperm(Partenaires $partperm): self
-    {
-        if (!$this->partperms->contains($partperm)) {
-            $this->partperms->add($partperm);
-        }
-
-        return $this;
-    }
-
-    public function removePartperm(Partenaires $partperm): self
-    {
-        $this->partperms->removeElement($partperm);
-
-        return $this;
+        return $this->id;
     }
 
     /**
@@ -104,5 +76,32 @@ class Perms
     public function __toString()
     {
         return $this->nom2;
+    }
+
+    /**
+     * @return Collection<int, Partners>
+     */
+    public function getPartners(): Collection
+    {
+        return $this->partners;
+    }
+
+    public function addPartner(Partners $partner): self
+    {
+        if (!$this->partners->contains($partner)) {
+            $this->partners->add($partner);
+            $partner->addPermission($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartner(Partners $partner): self
+    {
+        if ($this->partners->removeElement($partner)) {
+            $partner->removePermission($this);
+        }
+
+        return $this;
     }
 }

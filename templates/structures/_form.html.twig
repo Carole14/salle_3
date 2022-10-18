@@ -1,11 +1,20 @@
+
+
+<div class = "formulaire">
+
+
 {{ form_start(form) }}
     {{ form_widget(form) }}
     <div> 
         <label name="email">Email de la structure</label>
         <input type="text" name="email"/> 
+        <div class = "passe">
         <label name="password">Mot de passe de la structure</label>
         <input type="password" name="password"/> 
         <input type="hidden" name="role" value="ROLE_STRUC" /> 
+        </div>
     </div>
+    <div class = "enregistrer">
     <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+    </div>
 {{ form_end(form) }}

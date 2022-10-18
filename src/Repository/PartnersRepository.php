@@ -2,32 +2,31 @@
 
 namespace App\Repository;
 
-use App\Data\SearchData;
-use App\Entity\Partenaires;
 use App\Entity\Partners;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Partenaires>
+ * @extends ServiceEntityRepository<Partners>
  *
- * @method Partenaires|null find($id, $lockMode = null, $lockVersion = null)
- * @method Partenaires|null findOneBy(array $criteria, array $orderBy = null)
- * @method Partenaires[]    findAll()
- * @method Partenaires[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Partners|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Partners|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Partners[]    findAll()
+ * @method Partners[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PartenairesRepository extends ServiceEntityRepository
+class PartnersRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Partners::class);
     }
 
-    public function add(Partners $entity, bool $flush = false)
+    public function add(Partners $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
+
         if ($flush) {
-            return $this->getEntityManager()->flush();
+            $this->getEntityManager()->flush();
         }
     }
 
@@ -40,26 +39,8 @@ class PartenairesRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * Get parteners with query search
-     * 
-     */
-    public function findSearch($search)
-    {
-
-        $query = $this
-        ->createQueryBuilder('p');
-
-        if(!empty($search)) {
-            $query = $query
-            ->andWhere('p.nom LIKE :q')
-            ->setParameter('q', "%{$search}%");
-        }
-        return $query = $query->getQuery()->getResult();;
-    }
-
 //    /**
-//     * @return Partenaires[] Returns an array of Partenaires objects
+//     * @return Partners[] Returns an array of Partners objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -73,7 +54,7 @@ class PartenairesRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Partenaires
+//    public function findOneBySomeField($value): ?Partners
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')

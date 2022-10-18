@@ -38,7 +38,8 @@ class StructuresController extends AbstractController
     }
 
     #[Route('/new', name: 'app_structures_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, StructuresRepository $structuresRepository, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository): Response
+    public function new(Request $request, StructuresRepository $structuresRepository, 
+    UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository): Response
     {
         $structure = new Structures();
         $user = new User();

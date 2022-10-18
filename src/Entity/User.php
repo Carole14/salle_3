@@ -32,8 +32,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Structures $structure = null;
 
-    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?Partenaires $partenaire = null;
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Partners $partner = null;
 
     public function getId(): ?int
     {
@@ -116,15 +116,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function getPartenaire(): ?Partenaires
+    public function getPartner(): ?Partners
     {
-        return $this->partenaire;
+        return $this->partner;
     }
 
-    public function setPartenaire(?Partenaires $partenaire): self
+    public function setPartner(?Partners $partner): self
     {
-        $this->partenaire = $partenaire;
+        $this->partner = $partner;
 
         return $this;
     }

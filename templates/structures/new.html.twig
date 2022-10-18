@@ -6,9 +6,13 @@
 
 {% include 'navigation.html.twig' %}
 
-    <h1>Créer une nouvelle structure</h1>
+<h1 class = "structure">Créer une nouvelle structure</h1>
+
+   <p> 
 
     {{ include('structures/_form.html.twig') }}
-
-    <a class = "retour" href="{{ path('app_structures_index') }}">Retourner à la liste</a>
+</p>
+<div class = "retour">
+    <a class = "lien" href="{{ path('app_structures_index') }}">Retourner à la liste des structures</a>
+</div>
 {% endblock %}

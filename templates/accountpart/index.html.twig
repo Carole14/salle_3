@@ -11,22 +11,19 @@
         <tbody>
             <tr>
                 <th>Nom</th>
-                <td>{{ app.user.getPartenaire().getNom() }}</td>
+                <td>{{ app.user.getPartner().getNom() }}</td>
             </tr>
               <tr>
                 <th>Active</th>
-                <td>{{ app.user.getStructure().isActive() ? 'Oui' : 'Non' }}</td>
+                <td>{{ app.user.getPartner().isActive() ? 'Oui' : 'Non' }}</td>
             </tr>
              <tr>
              <th>Permissions</th>
-           {% for structurePerm in app.user.getStructure().getStruturesperms() %}
-                <td>{{ structurePerm.getNom2()}}</td>
+           {% for partPerm in app.user.getPartner().getPermission() %}
+                <td>{{ partPerm.getNom2()}}</td>
               {% endfor %}
   </tr>
-     <tr>
-        <th>Structures</th>
-                <td>{{ app.user.getPartenaire().getStructure().getNom() }}</td>
-  </tr>
+    
             
         </tbody>
     </table>

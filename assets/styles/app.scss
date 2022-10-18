@@ -2,6 +2,8 @@
 
 h1 {
     text-align: center;
+    font-family : Monaco;
+    
 }
 
 .vertical-line{
@@ -64,22 +66,22 @@ h1 {
 }
 
 @media only screen and (min-width: 992px) {
-    .col {column-count: 5;}
+    .col {column-count: 3;}
 }
 
 @media only screen and (min-width: 992px) {
     .colonne {column-count: 4;}
 }
 
-.structure, .partenaire, .profil {
-    line-height: 7rem;
+.structure, .partenaire, .profil, .perms {
+    line-height: 9rem;
 }
 
 .partenaire {
     text-align:center;
 }
 
-.nouvelle, .retour {
+.nouvelle, .lien, .modifier {
     color: #9395D3;
 }
 
@@ -89,25 +91,26 @@ h1 {
 
 .form {
 	
-    text-align: center;
+    
     vertical-align: middle;
     
 }
 
-.nouveau {
-    line-height: 9rem;
-}
-
 .formulaire {
     line-height: 2rem;
-    text-align: center;
+    
 }
 
-.retour, .enregistrer {
+.retour, .lien {
     line-height: 4rem;
-    text-align: center;
+    
 }
 
-.passe {
-    line-height: 2rem;
+.enregistrer, .table {
+    line-height: 6rem;
+    
+}
+
+.table, .formulaire, p {
+    font-family : Arial;
 }

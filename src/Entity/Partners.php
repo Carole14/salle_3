@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PartenairesRepository;
+use App\Repository\PartnersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PartenairesRepository::class)]
-class Partenaires
+#[ORM\Entity(repositoryClass: PartnersRepository::class)]
+class Partners
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,23 +21,15 @@ class Partenaires
     #[ORM\Column]
     private ?bool $active = null;
 
+    #[ORM\ManyToMany(targetEntity: Perms::class, inversedBy: 'partners')]
+    private Collection $permission;
 
-
-
-    #[ORM\ManyToMany(targetEntity: Perms::class, mappedBy: 'partperms')]
-    private Collection $partperms;
-
-    #[ORM\OneToMany(mappedBy: 'partenaire', targetEntity: Structures::class)]
+    #[ORM\OneToMany(mappedBy: 'partner', targetEntity: Structures::class)]
     private Collection $structures;
-
-    #[ORM\OneToOne(mappedBy: 'partenaire', cascade: ['persist', 'remove'])]
-    private ?User $user = null;
-
-    
 
     public function __construct()
     {
-        $this->partperms = new ArrayCollection();
+        $this->permission = new ArrayCollection();
         $this->structures = new ArrayCollection();
     }
 
@@ -70,32 +62,34 @@ class Partenaires
         return $this;
     }
 
-
     /**
      * @return Collection<int, Perms>
      */
-    public function getPartperms(): Collection
+    public function getPermission(): Collection
     {
-        return $this->partperms;
+        return $this->permission;
     }
 
-    public function addPartperm(Perms $partperm): self
+    public function addPermission(Perms $permission): self
     {
-        if (!$this->partperms->contains($partperm)) {
-            $this->partperms->add($partperm);
-            $partperm->addPartperm($this);
+        if (!$this->permission->contains($permission)) {
+            $this->permission->add($permission);
         }
 
         return $this;
     }
 
-    public function removePartperm(Perms $partperm): self
+    public function removePermission(Perms $permission): self
     {
-        if ($this->partperms->removeElement($partperm)) {
-            $partperm->removePartperm($this);
-        }
+        $this->permission->removeElement($permission);
 
         return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->nom;
     }
 
     /**
@@ -110,7 +104,7 @@ class Partenaires
     {
         if (!$this->structures->contains($structure)) {
             $this->structures->add($structure);
-            $structure->setPartenaire($this);
+            $structure->setPartner($this);
         }
 
         return $this;
@@ -120,34 +114,11 @@ class Partenaires
     {
         if ($this->structures->removeElement($structure)) {
             // set the owning side to null (unless already changed)
-            if ($structure->getPartenaire() === $this) {
-                $structure->setPartenaire(null);
+            if ($structure->getPartner() === $this) {
+                $structure->setPartner(null);
             }
         }
 
         return $this;
     }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($user === null && $this->user !== null) {
-            $this->user->setPartenaire(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($user !== null && $user->getPartenaire() !== $this) {
-            $user->setPartenaire($this);
-        }
-
-        $this->user = $user;
-
-        return $this;
-    }
-
 }
